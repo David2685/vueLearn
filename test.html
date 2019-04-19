@@ -5,6 +5,16 @@
     <title>Title</title>
 </head>
 <body>
+	<div id="app-1">
+		<input v-model="searchText" type="text">
+		<input type="text" @input="searchText2 = $event.target.value">
+		<!-- <custom-input :value="searchText" @input="searchText=$event.target.value"></custom-input> -->
+		<!-- <custom-checkbox v-model="checked1"></custom-checkbox> -->
+		<custom-checkbox :ha-h-a="checked1"></custom-checkbox>
+		<p>{{ searchText }}</p>
+		<p>{{ searchText2 }}</p>
+		<p>自定义的：{{ checked1 }}</p>
+	</div>
 <div id="app-6">
     <p v-bind:[attrName]="valueVar">{{ message }}</p>
     <p :title="valueVar">{{ message }}</p>
@@ -63,6 +73,29 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+
+<script>
+	Vue.component('custom-checkbox', {
+  		props: ['ha-h-a'],
+  		model:{
+  			prop:'ha-h-a',
+  			event:'aa'
+  		},
+  		template: `<div><input type="checkbox" :checked="ha-h-a" @change="$emit('aa',$event.target.checked)"><span>自定义的checkbox</span></div>`
+  		//template: `<input v-model="value">`//报错，这样绑定的话子组建会修改父组件的数据，子组建要与父组件通信，只能发送事件
+	})
+
+    var app1 = new Vue({
+        el: '#app-1',
+        data: {
+            searchText:'false',
+            searchText2:'',
+            checked1:[],
+        },
+    })
+</script>
 
 <script>
     var app5 = new Vue({
